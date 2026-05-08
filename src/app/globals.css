@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-yellow: #ffce03;
+    --brand-red: #c80650;
+    --brand-black: #0a0a0a;
+    --brand-white: #fafafa;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-oswald), sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand-yellow text-brand-black font-heading font-semibold px-6 py-3 uppercase tracking-wide
+      hover:brightness-110 active:scale-95 transition-all duration-150 rounded-sm;
+  }
+
+  .btn-danger {
+    @apply bg-brand-red text-brand-white font-heading font-semibold px-6 py-3 uppercase tracking-wide
+      hover:brightness-110 active:scale-95 transition-all duration-150 rounded-sm;
+  }
+
+  .btn-outline {
+    @apply border border-brand-yellow text-brand-yellow font-heading font-semibold px-6 py-3 uppercase tracking-wide
+      hover:bg-brand-yellow hover:text-brand-black active:scale-95 transition-all duration-150 rounded-sm;
+  }
+
+  .card {
+    @apply bg-white/5 border border-white/10 rounded-md p-4;
+  }
+
+  .section-heading {
+    @apply font-heading text-2xl md:text-3xl text-brand-yellow uppercase tracking-widest;
+  }
+}
+
+/* PWA safe-area insets */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
