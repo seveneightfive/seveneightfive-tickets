@@ -5,16 +5,19 @@ import { redirect } from "next/navigation";
 export default async function DashboardPage() {
   const supabase = createServerClient();
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  data: { user },
+} = await supabase.auth.getUser();
 
-  if (!user) {
-    // No session — bounce to seveneightfive.com login, then return here
-    const returnTo = encodeURIComponent(
-      `${process.env.NEXT_PUBLIC_APP_URL ?? ""}/dashboard`,
-    );
-    redirect(`https://seveneightfive.com/login?returnTo=${returnTo}`);
-  }
+const effectiveUserId =
+  user?.id ??
+  (process.env.NODE_ENV === "development" ? process.env.DEV_BYPASS_USER_ID : null);
+
+if (!effectiveUserId) {
+  const returnTo = encodeURIComponent(
+    `${process.env.NEXT_PUBLIC_APP_URL ?? ""}/dashboard`,
+  );
+  redirect(`https://seveneightfive.com/login?returnTo=${returnTo}`);
+}
 
   // Match by ANY of the ownership columns seveneightfive.com may populate
   const { data: events } = await supabase
